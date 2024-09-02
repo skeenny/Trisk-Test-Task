@@ -1,0 +1,19 @@
+$text: #0a1932;
+$body-color: #f5f6f8;
+$form-color: #fff;
+$form-shadow: 0 4px 10px #141e3208;
+$input-border: #1A1B1F;
+
+body {
+    background-color: $body-color;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}

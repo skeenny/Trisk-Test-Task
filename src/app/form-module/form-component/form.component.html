@@ -1,0 +1,16 @@
+<div class="form-wrapper">
+  <form [formGroup]="formGroup" class="form-container">
+    <app-checkbox-input
+      [control]="formGroup.controls['checkbox']"
+      [latestValue]="backendData.checkbox"
+    ></app-checkbox-input>
+    <app-radio-input
+      [control]="formGroup.controls.radio"
+      [latestValue]="backendData.radio"
+    ></app-radio-input>
+    <app-text-input
+      [control]="formGroup.controls.text"
+      [latestValue]="backendData.text"
+    ></app-text-input>
+  </form>
+</div>

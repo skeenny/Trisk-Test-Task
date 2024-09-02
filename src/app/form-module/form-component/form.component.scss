@@ -1,0 +1,30 @@
+@import "../../../styles.scss";
+
+.form-wrapper {
+    background-color: $form-color;
+    box-shadow: $form-shadow;
+    padding: 20px;
+    border-radius: 5px;
+
+    .form-container {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+}
+
+.input-wrapper {
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    input {
+        border: 1px solid $input-border;
+        border-radius: 3px;
+        padding: 5px;
+        text-align: center;
+        height: 30px;
+    }
+}
