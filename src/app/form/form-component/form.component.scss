@@ -14,11 +14,16 @@
 }
 
 .input-wrapper {
-    height: 100px;
+    height: 125px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+
+    .radio-wrapper {
+        display: flex;
+        flex-direction: column;
+    }
 
     input {
         border: 1px solid $input-border;
