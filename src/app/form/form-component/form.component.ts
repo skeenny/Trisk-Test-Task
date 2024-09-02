@@ -1,13 +1,13 @@
 import {
   AfterViewInit,
-  ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  OnDestroy,
   OnInit,
 } from '@angular/core';
 import { FormService } from '../../services/form.service';
 import { FormControl, FormGroup } from '@angular/forms';
-import { debounceTime, distinctUntilChanged } from 'rxjs';
+import { debounceTime, distinctUntilChanged, Subject, takeUntil } from 'rxjs';
 import { IFormData } from '../../models/form.model';
 
 @Component({
@@ -15,13 +15,15 @@ import { IFormData } from '../../models/form.model';
   templateUrl: './form.component.html',
   styleUrl: './form.component.scss',
 })
-export class FormComponent implements OnInit, AfterViewInit {
+export class FormComponent implements OnInit, AfterViewInit, OnDestroy {
   formGroup = new FormGroup({
     text: new FormControl(''),
     radio: new FormControl('Option 1'),
     checkbox: new FormControl(false),
   });
   backendData!: IFormData;
+  private unsubscribe$ = new Subject<void>();
+
   constructor(
     private formService: FormService,
     private cdr: ChangeDetectorRef
@@ -40,7 +42,11 @@ export class FormComponent implements OnInit, AfterViewInit {
 
   listenFormChanges(): void {
     this.formGroup.valueChanges
-      .pipe(debounceTime(500), distinctUntilChanged())
+      .pipe(
+        debounceTime(500),
+        distinctUntilChanged(),
+        takeUntil(this.unsubscribe$)
+      )
       .subscribe(() => {
         const data = this.formGroup.value as IFormData;
         this.updateForm(data);
@@ -68,5 +74,10 @@ export class FormComponent implements OnInit, AfterViewInit {
       emitEvent: false,
     });
     this.cdr.detectChanges();
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 }
